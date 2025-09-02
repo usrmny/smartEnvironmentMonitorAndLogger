@@ -1,0 +1,8 @@
+/Debug/
+.settings
+.cproject
+.project
+.mxproject
+*.launch
+STM32F401RETX_FLASH.id
+STM32F401RETX_RAM.id
