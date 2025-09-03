@@ -1,8 +1,4 @@
 /Debug/
 .settings
-.cproject
-.project
 .mxproject
 *.launch
-STM32F401RETX_FLASH.ld
-STM32F401RETX_RAM.ld

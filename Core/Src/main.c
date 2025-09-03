@@ -95,31 +95,10 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(200);
-  uint8_t rawData[7];
   char uartMsg[64] = "------NEW CODE------\n\r";
   HAL_UART_Transmit(&huart2, (uint8_t*)uartMsg, strlen(uartMsg), 100);
 
-
-  // Check if calibration is needed
-  uint8_t status = 0;
-  uint8_t cmdStatus = 0x71;
-
-  HAL_I2C_Master_Transmit(&hi2c1, 0x38 << 1, &cmdStatus, 1, 100);
-  HAL_I2C_Master_Receive(&hi2c1, 0x38 << 1, &status, 1, 100);
-
-
-  if ((status & 0x18) != 0x18) {
-      // Initialization failed, CALIBRATE
-      char failMsg[] = "Sensor NOT ready!\r\n";
-      HAL_UART_Transmit(&huart2, (uint8_t*)failMsg, strlen(failMsg), 100);
-
-      //CALIBRATE (found at official website)
-
-
-  } else {
-      char okMsg[] = "Sensor READY!\r\n";
-      HAL_UART_Transmit(&huart2, (uint8_t*)okMsg, strlen(okMsg), 100);
-  }
+  dht20_init(&hi2c1, &huart2);
 
   /* USER CODE END 2 */
 
@@ -127,39 +106,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  	 //send command to start measuring
-	     uint8_t cmd[3] = {0xAC, 0x33, 0x00};
-	     HAL_I2C_Master_Transmit(&hi2c1, 0x38 << 1, cmd, 3, 100);
-
-	     //check if data is ready to read
-	     uint8_t status = 0xFF;
-	     HAL_Delay(100);
-	     do {
-	         HAL_Delay(5);
-	         HAL_I2C_Master_Receive(&hi2c1, 0x38 << 1, &status, 1, 100);
-	     } while (status & 0x80);
-
-	     //get data ([1:5]), [6] is CRC and [0] is state
-	     HAL_I2C_Master_Receive(&hi2c1, 0x38 << 1, rawData, 7, 100);
-
-	     //convert data to actual values
-	     uint32_t raw_humidity = ((uint32_t)(rawData[1]) << 12) |
-	                             ((uint32_t)(rawData[2]) << 4) |
-	                             ((uint32_t)(rawData[3]) >> 4);
-
-	     uint32_t raw_temp = (((uint32_t)(rawData[3] & 0x0F)) << 16) |
-	                         ((uint32_t)(rawData[4]) << 8) |
-	                         ((uint32_t)(rawData[5]));
-
-	     float humidity = (raw_humidity / 1048576.0f) * 100.0f;
-	     float temperature = (raw_temp / 1048576.0f) * 200.0f - 50.0f;
-
-	     //display values
-	     char uart_msg[64];
-	     HAL_UART_Transmit(&huart2, (uint8_t*)uart_msg, strlen(uart_msg), 100);
-
-	     HAL_Delay(5000); //minimum needed is 2000 ms
+	  dht20_read(&hi2c1, &huart2);
+	  HAL_Delay(5000); //minimum needed is 2000 ms
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

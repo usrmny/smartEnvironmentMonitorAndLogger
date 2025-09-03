@@ -33,6 +33,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "stdio.h"
+#include "dht20.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
