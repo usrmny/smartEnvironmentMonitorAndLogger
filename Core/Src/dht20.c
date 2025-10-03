@@ -29,7 +29,8 @@ void dht20_read(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
 
 	//send command to start measuring
 	 uint8_t cmd[3] = {0xAC, 0x33, 0x00};
-	 HAL_I2C_Master_Transmit(hi2c, 0x38 << 1, cmd, 3, 100);
+	 HAL_I2C_Master_Transmit(hi2c, 0x38 << 1, cmd, 3, 100); //shouldn't shift... HAL does it internally when it assigns 0 or 1 LSB... try without...
+
 
 	 //check if data is ready to read
 	 uint8_t status = 0xFF;
@@ -37,7 +38,7 @@ void dht20_read(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
 	 do {
 		 HAL_Delay(5);
 		 HAL_I2C_Master_Receive(hi2c, 0x38 << 1, &status, 1, 100);
-	 } while (status & 0x80);
+	 } while (status & 0x80); //status & 10000000 = ?0000000
 
 	 //get data ([1:5]), [6] is CRC and [0] is state
 	 HAL_I2C_Master_Receive(hi2c, 0x38 << 1, raw_data, 7, 100);
