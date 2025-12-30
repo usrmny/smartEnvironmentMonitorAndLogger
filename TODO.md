@@ -1,9 +1,9 @@
 # Version 1 TODO:
 [X] Read and convert data from DHT20
 [ ] Solder pinheads for the components that were not pre-soldered
-[ ] Read and convert data from BME280
+[X] Read and convert data from BH1750
 [ ] Electrical schematic (KiCad) or block diagram
-[ ] Display both sensor results on OLED screen
+[ ] Display both sensor results on an OLED screen
 [ ] Log data to a memory card
 [ ] Send data from memory card to csv file 
 [ ] Buttons to switch display on OLED

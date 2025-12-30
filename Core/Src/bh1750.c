@@ -1,5 +1,7 @@
 #include "bh1750.h"
 
+
+//might not work, since haven't decided on pins yet...
 void bh1750_init(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
 
 	//Power on (maybe add power off later on)
@@ -14,7 +16,7 @@ void bh1750_read(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
 
 	//write to sensor
 	 HAL_I2C_Master_Transmit(hi2c, 0x23 << 1, &mode_cmd, 1, 100);
-	 HAL_Delay(180);
+	 HAL_Delay(200);
 
 	 HAL_I2C_Master_Receive(hi2c, 0x23 << 1, raw_data, 2, 100);
 
