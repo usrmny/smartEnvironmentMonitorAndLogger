@@ -2,14 +2,14 @@
 
 
 //might not work, since haven't decided on pins yet...
-void bh1750_init(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
+void bh1750_init(I2C_HandleTypeDef *hi2c){
 
 	//Power on (maybe add power off later on)
 	uint8_t power_cmd = 0x01;
 	HAL_I2C_Master_Transmit(hi2c, 0x23 << 1, &power_cmd, 1, 100);
 }
 
-void bh1750_read(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
+void bh1750_read(I2C_HandleTypeDef *hi2c, float *lux){
 
 	uint8_t raw_data[2];
 	uint8_t mode_cmd = 0x10;
@@ -21,13 +21,8 @@ void bh1750_read(I2C_HandleTypeDef *hi2c, UART_HandleTypeDef *huart){
 	 HAL_I2C_Master_Receive(hi2c, 0x23 << 1, raw_data, 2, 100);
 
 	 uint16_t raw_lux = ((uint16_t) raw_data[0] << 8) | ((uint16_t) raw_data[1]);
-	 float lux = raw_lux / 1.2;
+	 *lux = raw_lux / 1.2;
 
-
-	 //display values
-	 char uart_msg[64];
-	 snprintf(uart_msg, sizeof(uart_msg), "Light: %.2f Lux\r\n", lux);
-	 HAL_UART_Transmit(huart, (uint8_t*)uart_msg, strlen(uart_msg), 100);
 
 	 /*
 	 //check if data is ready to read
