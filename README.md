@@ -50,6 +50,14 @@ log.c / log.h
 - ST-Link debugger (on-board)
 - Tera Term (UART @ 115200 baud)
 
+## Challenges / What I learnt
+- Reading and Interpreting Datasheets
+- I2C and SPI Communication Protocals
+- Fatfs Middleware
+- STM32 Development
+- Soldering
+- Display data via UART
+
 ## Copyright
 This project uses STM32Cube middleware (HAL, CMSIS, FatFs).
 The middleware is unmodified and licensed by STMicroelectronics
