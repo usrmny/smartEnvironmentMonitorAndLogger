@@ -2,7 +2,7 @@
 Independant personal project done to explore embedded systems.
 
 ## Preview
-![Hardware Setup](assets/wiring.jpg)
+![Hardware Setup](assets/wiring.jpeg)
 ![UART Output](assets/uart_output.png)
 
 ## System Overview
