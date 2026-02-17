@@ -106,20 +106,24 @@ int main(void)
   float lux = 0;
   HAL_Delay(200);
 
+  // Initialize SD card
   log_init(&huart2);
   dht20_init(&hi2c1, &huart2);
   bh1750_init(&hi2c1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+
 	  dht20_read(&hi2c1, &temperature, &humidity);
 	  bh1750_read(&hi2c1, &lux);
 	  log_store(&huart2, &lux, &temperature, &humidity);
 	  HAL_Delay(5000); //minimum needed is 2000 ms
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

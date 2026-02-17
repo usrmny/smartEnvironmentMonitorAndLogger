@@ -35,6 +35,7 @@ extern "C" {
 #include "stdio.h"
 #include "dht20.h"
 #include "bh1750.h"
+#include "log.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
