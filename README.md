@@ -1,4 +1,4 @@
-# Smart Environment Data Logger 
+# Smart Environment Monitor and Data Logger 
 Independant personal project done to explore embedded systems.
 
 ## Preview
