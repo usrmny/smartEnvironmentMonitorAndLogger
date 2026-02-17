@@ -6,14 +6,14 @@ Independant personal project done to explore embedded systems.
 ![UART Output](assets/uart_output.png)
 
 ## System Overview
-Every 5 seconds, this system measures the light, temperature and humidity of the environment, converts the raw data into actual values,  stores them into an SD Card while displaying the results via UART.
+Every 5 seconds, this system measures the light, temperature and humidity of the environment, converts the raw data into actual values, and stores them into an SD Card while displaying the results via UART.
 
 ## Components Used
 - NUCLEO-F401RE (Microcontroller)
 - BH1750 (light sensor)
 - DHT20 (temperature and humidity sensor)
 - DFR0229 (Micro SD Card Module)
-- USB-to-Serial converter
+- USB-to-Serial cable
 - Jumper wires
 
 ## Pin Mapping
@@ -63,4 +63,3 @@ This project uses STM32Cube middleware (HAL, CMSIS, FatFs).
 The middleware is unmodified and licensed by STMicroelectronics
 and third-party authors. See the STM32Cube firmware package
 for full license texts.
-
